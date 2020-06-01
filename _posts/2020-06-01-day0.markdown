@@ -1,0 +1,31 @@
+---
+layout: post
+title: "Day 0: GSoC 2020 with OpenChemistry and cclib"
+date: 2020-06-01 13:56:00 +0900
+categories: cclib
+---
+
+Hello! During the timespan of next three months, I will be making updates about the progress I make while participating in the Google Summer of Code 2020. This year, I will be working on cclib, which is a computational chemistry library written in Python. It is used to further analyze the outputs from common computational chemistry packages, which often perform *ab initio* calculations (basically solving the many body systems from scratch).
+
+Specifically, I will be expanding the population analysis methods currently present in cclib by adding more methods. Currently, cclib has support for following methods:
+
+ - C-squared Population Analysis (CSPA)
+ - Mulliken Population Analysis
+ - Lowdin Population Analysis
+
+During the summer, I plan to expand this with some methods that are similar to the ones that already exist in cclib as well as some methods that are quite different. These are the list of methods that I plan to add to the library:
+
+ - Bickelhaupt Population Analysis
+ - Hirshfeld Population Analysis
+ - DDEC6
+ - Bader's QTAIM
+
+The primary motivation around this is that many population analysis packages are written in different languages and different styles by the research teams that originally devised such methods. Thus, it can sometimes be inconvenient and difficult for researchers to analyze their target molecules/complexes under a variety of methods. This is particularly important concern in population analysis, because unlike quantum mechanical observables, partial charges on each atom are merely human-made conducts a.k.a. *noumena* that does not have a unique correct definition. Therefore, it is imperative that researchers identify a method of their choice that best assists in the chemical problem they are working on. By having a library capable of supporting these pursuits written in a modern language Python, research efforts in computational chemistry can be boosted further.
+
+Most of the code relevant to this project live under `cclib.method.calculationmethod.Method`. I will be making effort to understand the pre-existing code, write new methods, and present documentations on how the code works and should be utilized.
+
+Looking forward to sharing more!
+
+*Note: My proposal can be found in this [page](https://summerofcode.withgoogle.com/projects/#6447506558287872)*
+
+
