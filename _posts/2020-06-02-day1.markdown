@@ -1,0 +1,51 @@
+---
+layout: post
+title: "Day 1: Understanding cclib Code Structure"
+date: 2020-06-02 13:00:00 +0900
+categories: cclib
+---
+
+The very first step I will be taking in this project is naturally to identify and understand the structure of the cclib code. cclib is structured similarly to many other Python libraries and has classes that are relevant to each other residing in same directories.
+
+In the first glance, cclib source code has five directories: `cclib`, `data`, `doc`, `test`, `travis`.
+
+### `cclib` directory
+`cclib` directory contains all the main code that is relevant to actually performing the functionalities of cclib package. It has number of subdirectories as listed below.
+
+ 1. `bridge` provides useful bridging functions to other computational chemistry packages
+ 2. `io` takes care of file input and output (hence the I/O function)
+ 3. `method` has the computational methods that cclib is able to perform. Number of population analysis methods and other computational analysis methods, such as Mayer's Bond Orders and Charge Decomposition Analysis reside here. I will discuss about the `calculationmethod` class and `population` class further in the later part of this post.
+ 4. `parser` contains functions that can read information from different quantum chemical packages, such as ORCA, Gamess, Gaussian, Molpro and so much more. These functions extract information from the outputs (which usually are in plain text form) of different quantum chemical packages and creates an instance of common structure defined for subsequent calculations in cclib. This streamlines how calculations are performed in cclib.
+ 5. `progress` allows presentation of calculation progress to the user. Text-based progress and QT-based visual progress is implemented here.
+ 6. `script` has Python scripts that allow easier execution in command line environment. It allows common calculations to be performed simply by invoking the scripts without actually writing a Python script on each individual's own.
+
+### `doc` directory
+
+`doc` has documentation for cclib. The documentation can be easily browsed [here](http://cclib.github.io). It is written to work with Sphinx. I will need to read more about its format (as explained [here](https://www.sphinx-doc.org/en/master/usage/quickstart.html)) before I make changes to the documentation.
+
+### `test`,  `data`, and `travis` directory
+
+cclib has an extensive automated tests that are executed when any pull requests are made to the code base. `test` contains Python scripts that compare calculated values with other known values (often from different computational chemistry packages) and `data` contains the output files that are parsed for each test run. `travis` directory contains information needed for automated test runs on Travis.
+
+### Bickelhaupt Method
+
+In this first week, I will be implementing Bickelhaupt method as a starting point. This method is chosen due to its similarity to the Mulliken method, which already exists in cclib code. As identified in the original article[^1] and unlike Mulliken method which divides the cross terms in the partial charge matrix equally, Bickelhaupt method divides the cross term based on the relative magnitude of the diagonal terms.
+
+In `cclib.cclib.method.mpa`, the lines relevant to building the ***DS*** matrix (density matrix multiplied by overlap matrix). This is identified from `cclib.cclib.method.mpa:68-77` where
+
+```python
+temp = numpy.dot(ci, self.data.aooverlaps) # second argument may be fooverlaps for unrestricted calculations
+self.aoresults[spin][i] = numpy.multiply(ci, temp).astype("d")
+```
+
+calculates ***C<sub>i</sub> &times; C<sub>i</sub> &bull; S <sub>a</sub>*** .
+
+This matrix is then further processed by being passed to a function in parent class (`population`) called `partition`. The `partition` function then identifies and matches each orbital to constituent atoms. This transforms the matrix into a form with each atom consisting each columns (as shown in `results[spin][:, i] = numpy.add(results[spin][:, i], temp` in `cclib.cclib.method.population:98`. Finally, each element in the matrix is summed up into the `fragcharges` attribute in the given instance of `MPA`.
+
+Now, what is relevant here is that Bickelhaupt charges distribute off-diagonal elements by using the formula *q<sub>i</sub> = X <sub>ii</sub> + &sum; <sub>i &ne; j </sub> (q<sub>ij</sub> + q<sub>ji</sub>) q <sub> ii </sub> / (q <sub> ii </sub> + q <sub>jj </sub>)* . This allows me to identify that a large part of the code in `MPA` can be reused but the segment along `cclib.cclib.method.population:90-107` needs to be modified so that it does not equally distribute the off-diagonal terms.
+
+I will be starting to implement the actual Bickelhaupt code starting tomorrow, and will start thinking about testing the results as well. As mentioned earlier, `cclib` has a great automated testing system and I should therefore find way to add this flawlessly. I know that Multiwfn can calculate Bickelhaupt charges, but it would be nice if the packages that `cclib` is already using to verify against can calculate the charges as well for sake of simplicity.
+
+[^1]: Bickelhaupt, F. M.; Hommes, N. J. R.; Guerra, C. F.; Baerends, E. The Carbon-Lithium Electron Pair Bond in (CH3Li)_n (n=1,2,4). *Organometallics* **1996**, *15* (13), 2923-2931
+
+
