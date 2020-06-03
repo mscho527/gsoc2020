@@ -1,0 +1,13 @@
+---
+layout: post
+title: "Day 2: Bickelhaupt method"
+date: 2020-06-02 13:00:00 +0900
+categories: cclib
+---
+
+Today, I have written Bickelhaupt method for `cclib` as I have mentioned in an earlier post. Because I focused mainly on coding the method, I will keep this post shorter than usual.
+
+Basically, unlike what I have mentioned in yesterday's post, to my understanding, it looks like choosing to alter the `aoresults` by multiplying the elements with correct weights is a more sensible choice. Compared to uniform weight of 1 in Mulliken charge (due to the formula ***&eta; c<sub>ai</sub> c<sub>bi</sub> S<sub>ab</sub>*** ), Bickelhaupt charges have a variable weight determined by ***w<sub>ab</sub> = 2 &eta; &sum; c<sub>ai</sub><sup>2</sup> / ( &sum; &eta; c<sub>ai</sub><sup>2</sup> + &sum; &eta; c <sub>bi</sub><sup>2</sup>)*** .
+
+To accomplish this, numpy arrays were further declared to sum up the ***c<sub>ai</sub><sup>2</sup>*** terms within the loop. Changes that were made today are up on my forked repository of cclib as [commit `8c3521b`](https://github.com/mscho527/cclib/commit/8c3521b73453f2377e2fa930ba36ec873a53aff2) on bickelhaupt branch. Tomorrow, I will look for other packages that calculate Bickelhaupt charges so that I can compare and verify the code and try to incorporate with the automated testing suite already present in cclib.
+
