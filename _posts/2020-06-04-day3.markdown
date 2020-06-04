@@ -1,0 +1,10 @@
+---
+layout: post
+title: "Day 3: Bickelhaupt method"
+date: 2020-06-04 13:00:00 +0900
+categories: cclib
+---
+
+[Multiwfn](http://sobereva.com/multiwfn/) seems to have Bickelhaupt method calculation routine implemented in its package. In order to verify the code that I have written yesterday, I have used the included data (`dvb_un_sp.log` generated using Gaussian16) to compare the numbers. Unfortunately, it turns out that the numbers differ. I am rechecking and going over the indices and loops again to make sure that I did not miss anything in the code. One of my mentors will also be helping me out in reviewing whether I have missed anything that may deviate the results. Not exactly ideal, but I suppose things always happen!
+
+I think I should probably set up a simpler (i.e. diatomic molecule) to check the numbers more easily and perhaps do hand-calculations to easily pinpoint any mistakes. To start thinking about this, I have prepared an output using `Molpro` on the molecule CO<sub>2</sub>. This molecule may not be suitable for automated testing purposes since it does not allow us to go through every detail of the code (i.e. treatment of beta orbitals in UHF calculations), but it should at least be easier to track the matrix multiplications.
