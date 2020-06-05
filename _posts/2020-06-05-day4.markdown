@@ -1,0 +1,17 @@
+---
+layout: post
+title: "Day 4: Bickelhaupt method"
+date: 2020-06-05 13:00:00 +0900
+categories: cclib
+---
+
+My initial intentions were to reuse as much as I can from the `cclib.cclib.method.MPA` class that already exist in `cclib` code. However, after much struggles trying to generate the correct numbers, it looks like it makes more sense to calculate the charge matrix elements from scratch, in order to make sure that I calculate all the outputs that are expected for the superclass `cclib.cclib.method.Population`.
+
+Now, the implementation calculates the weight matrix ***W<sub>ab</sub>*** from the coefficients of the molecular orbitals before starting to actually perform matrix operations to calculate charges.
+
+Fortunately, I found the calculated results to match what is expected from the numbers returned by Multiwfn (which is implemented using Fortran) for two sample inputs I have used. While I was writing the code, I used an input generated using `ORCA` on carbon monoxide using 6-31G basis set. After I figured out how to deal with the matrix operations, I tested again for one of the data that is included with `cclib` for automated testing purposes. Obviously, more testing has to be done before actual release and thus this work is still WIP. There is some differences in the result (usually under the third place below the decimal point) but it looks like numerical errors that are inherent during the operations. Multiwfn calculates the gross population matrix using the ***DS*** matrix (density matrix and overlap matrix multiplied elementwise) which creates some differences. It is easier to calculate the atomic orbital contributions using the approach I have taken and because this is standard output defined in the superclass as `aoresults`, I have chosen to take this approach.
+
+Actually though, the original article by Bickelhaupt does not clearly specify whether weights should be calculated separately for alpha and beta orbitals or not. Multiwfn chose to calculate separately and I have done so as well (as this is what is mostly done for other *Class II* charges as well.
+
+After reviewing the [PR](https://github.com/cclib/cclib/pull/869) with my mentors, I should be able to move on to documentation of this function, *possibly* work on further optimizing the routine, and then continue with my next target method -- Hirshfeld Method. Unlike Bickelhaupt method, which involves matrix operations of the MO coefficients, Hirshfeld charge, like many other modern partial charge methods, involve partitioning the electron densities. This will lay out a way for me to write routines for other methods that I plan to implement, i.e. DDEC6.
+
