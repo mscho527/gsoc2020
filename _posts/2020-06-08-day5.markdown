@@ -1,0 +1,34 @@
+---
+layout: post
+title: "Day 5: Bickelhaupt method (Testing), Bridge to Horton"
+date: 2020-06-08 13:00:00 +0900
+categories: cclib
+---
+
+Now that the pull request for Bickelhaupt method was sent out last Friday, I continued by writing a simple extension for the automated testing (Travis CI) currently utilized by `cclib`. In an essence, I added Bickelhaupt method to the list of the methods that are checked in automated testing on whether 1) the sum of the individual charges match the expected total charge, 2) the sum of the spins match the expected total spin. It has been pretty straightforward addition to last week's task.
+
+It was deemed from last Friday's daily discussion that we should confirm whether the weights for the Bickelhaupt charges should be calculated separately for alpha and beta orbitals or not, so I have went on and wrote an email to Professor Bickelhaupt to make sure.
+
+During the daily discussion last Friday, Professor Hutchison suggested that I research whether it would make sense to create a bridge to [Horton](http://theochem.github.io/horton/) for Hirshfeld / ISA charges, because Horton is going through a major change as they move from Horton2 to Horton3.
+
+From what is recognized in their documentation and Git repositories, it looks like Horton2 had all relevant routines / classes in a single package / repository. They are splitting those into different repositories / packages where each independently performs different tasks. Current code relevant to stockholder type charges are copied in `theochem/denspart_horton2`. New repository (`theochem/denspart`) is not populated with a working code yet.
+
+Calculation routine with `denspart_horton2` involve first creating a pro-atomic density. This information needs to created in advance and is stored in `ProAtomDB` class where each atom's information is compiled as an instance of `ProAtomRecord` object. This information, along with following data about the molecule itself, are fed into different calculations.
+
+1. `WPart` base class
+	1. `coordinates`: cartesian coordinates of the constituent atoms
+	2. `numbers`: atomic numbers of the constituent atoms
+	3. `pseudo_numbers`: effective charges of constituent atoms (zero for ghost atoms)
+	4. `grid`: integration grid, UniformGrid object in `horton.grid.cext` as in `horton.horton.io.cube.py:38-57` or BeckeMolGrid was built in `horton.scripts.horton-wpart.py:115`.
+	5. `moldens`: electron density on a grid calculated from the density matrix. Horton calculates this on `horton.horton.gbasis.cext.pyx:1204-1233`. Maybe depending on horton2 for this method is not a good idea since gbasis for horton3 is being developed separately.
+	6. `spindens`: (optional); spin density on the grid.
+2. `ProAtomDB` class [Hirshfeld, Hirshfeld-I, MBIS]
+	1. `ProAtomRecord` class for individual atoms
+		1. `number`: see 1.2
+		2. `charge`: net charge of atom (proatom density differs between atoms of different charge; Hirshfeld method has an ambiguity in this respect. Iterative methods remove this issue.)
+		3. `energy`: total energy of proatom
+		4. `rgrid` and `rho`: radial grid of electron density and density itself
+3. `maxiter` and `threshold` for iterative calculation [Hirshfeld-I, ISA, MBIS]
+
+Most information should be directly retrievable from cclib's parsed data. There needs to be some decisions made on how to deal with `grid` object and `molden` object (whether to invoke horton2 or not) and how to work out with `ProAtomDB` object. Otherwise, it should be fairly straightforward mapping between structures used in each of the packages.
+
