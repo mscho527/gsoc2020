@@ -1,0 +1,12 @@
+---
+layout: post
+title: "Day 6: Bickelhaupt method (Testing), Bridge to Horton"
+date: 2020-06-09 13:00:00 +0900
+categories: cclib
+---
+
+Based on my mentors' suggestion, I added hard-coded values for testing of Bickelhaupt method. Mayer's Bond Order (`cclib.cclib.method.mbo`) class already had a similar structure, so I had taken a look on it before I wrote testing routine for Bickelhaupt method. Basically, outputs from Gaussian 16, which are used for testing Mayer's Bond Order calculations were used to generate Bickelhaupt charges using Multiwfn. Two input files -- `dvb_un_sp.fchk` and `dvb_sp.fchk` were used for the testing. The former input is an unrestricted calculation (where alpha and beta charges are separately calculated) and the latter only has single array of orbitals and charges. Without any other pressing issues, the code part of Bickelhaupt method should be pretty much complete. After confirming that the method can be accepted, I can work on the documentation and cross it off from the list of the objectives.
+
+I could not make much of progress in writing the bridge to horton as I have spent rest of the time reading the implementation of horton 2 & horton 3 as well as the existing bridges in cclib. The bridge between `cclib` and `Psi4` has a routine that checks for existence of Psi, which is something that I need to take care of for horton as well and could extend to look for the version of the package. Also, it is perhaps a good idea to start by creating a working bridge between `cclib` and `horton/iodata` for both versions as many parts of the one-to-one match of the variables would still apply for `population` class.
+
+
