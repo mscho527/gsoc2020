@@ -1,0 +1,21 @@
+---
+layout: post
+title: "Day 7: Bickelhaupt method (docs), Bridge to Horton"
+date: 2020-06-10 13:00:00 +0900
+categories: cclib
+---
+
+After getting helpful feedbacks on my PR regarding Bickelhaupt methods, I had made some changes to reflect on the suggestions. Notably, my mentors recommended me to use a more verbose name for the class (thus from BPA to Bickelhaupt) since the abbreviation is not something used readily. Also, my mentor pointed out on calling the parent class constructor in the class I created for automated testing. This definitely helps me reinstate good coding practices.
+
+Today, to work towards finalizing the Bickelhaupt method work, I added documentation for the method following the style used for other population methods. I have not used `sphinx` before, so this has been an interesting introduction for me.
+
+Now, most of the attention goes to building a bridge between `horton` and `cclib`. First part of it was to write out something that verifies that `horton` is available in user's system. While doing so, I found out that a completely different package `Horton` is available in PyPi through `pip`. This package (unlike our target `horton`) is in version 0.1.1 and does not look to have been maintained for more than last five years, so I chose to read in the `__version__` variable for now. Horton 2 (of course) has a version name that starts with '2', so this works out. This will likely come after building a bridge to horton 2, but similar code to check for `iodata`, which is a package used in horton 3, has been included as well.
+
+Some of the mappings between horton 2's `iodata` and cclib's parsed data has been quite obvious, so those few attributes are added to the routine as well. Since `horton` and `cclib` both use numpy arrays, the mapping is very simple. For some of the less obvious aspects, I would try to figure it out with the mentors' assistance. A few examples are:
+
+1. Do we want to pass data that has been calculated using `cclib` (i.e. atomic partial charges and density matrices) to `horton` as well?
+2. Structure of `polarizability` in cclib. In `horton` and some materials I have seen, this is usually represented as a tensor. cclib has it as an array of rank 2.
+3. `core_energy` and `energy` -- I could probably use a bit more clarification on these attributes.
+
+After I have the bridge that builds horton object from cclib and an automated test, I should be able to easily write something that takes care of the other way around.
+
