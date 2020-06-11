@@ -1,0 +1,21 @@
+---
+layout: post
+title: "Day 8: Bridge to Horton"
+date: 2020-06-11 13:00:00 +0900
+categories: cclib
+---
+
+Today, I've practically finished the main portion of the code for the bridge between `horton 2` and `cclib`. Basically, it consists of two functions that live within `cclib.bridge`, where all the other pre-existing bridges reside (i.e. `Psi4`, `Biopython`). There are functions that converts between `horton.io.iodata.IOData` class in `horton 2` to `cclib`'s `cclib.parser.data.ccData`, both of which are the internal classes used in the two packages to hold parsed data from the inputs. As mentioned earlier, this bridge, along with a bridge for `GObasis` class in `horton` which holds information about the gaussian-type basis, is a key step in creating a sensible link to `horton`. Hirshfeld and Hirshfeld-like charges (i.e. Iterative Stockholder, Iterative Hirshfeld, etc) would be accessible from `cclib` after this.
+
+While the bridge itself had been completed early on today, I spent most of the time looking through the Travis CI configuration that is already in `cclib` repository. I have *zero* experience with automated builds, so this is very new and insightful for me. A few points I should consider before I make changes to the Travis CI configuration is that `horton 2` 1) works only with Python 2.x.x and 2) recent build of `horton 2` is NOT available in PyPi -- prebuilt binaries are rather only accessible from `conda` and directly from its git repository. `IOData` from `horton 3` works both with Python 2.x.x and 3.x.x but the development is still very *active* in a sense that larger parts of the APIs can still change in foreseeable future. Thus ideally, Travis CI should perform test `horton 2` in Python 2.x.x virtual machine and `IOData` in `horton 3` in rest of the machines. Judging from the existing codebase, I see that Travis configurations are really commands to set up the virtualenv and the required dependencies and have a syntax where the commands are specified for each stage (i.e. before installing cclib, while installing cclib, etc). Adding `horton` to the conda setup commands based on the Python version environment variable (`$TRAVIS_PYTHON_VERSION`) would likely be what I need to do. After a bridge to the Hirshfeld-type methods in `horton 2` is written, Python 2.x.x virtual machine should test those *bridge/wrapper* as well.
+
+To kind of sum up what will be up in next few days, I will:
+
+1. Modify Travis CI to accomodate `horton 2` bridge testing in Python 2.x.x virtual machine AND write a sensible test (possibly some simple property calculation present in both packages?)
+2. Write a bridge for `IOData` in `horton 3`
+3. Make changes for Travis CI to accomodate `IOData` tests in Python 3.x.x (*possibly also Python 2.x.x*) machines
+4. Write a wrapper for Hirshfeld type routines in `horton`. It will use the bridge between to packages internally. This will ensure that if any of two packages make changes in their data structure, just making appropriate modifications to the data structure bridge will resolve issue for the property calculation bridge as well.
+5. As always, write documentation.
+
+Something else I should mention here -- rebasing and squashing commits before pull request was a big thing that I learned from my mentors yesterday. Having worked only with smaller teams (or otherwise individually), I am learning how to effectively work with a larger team and helping everyone stay in sync with the project history.
+
