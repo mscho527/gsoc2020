@@ -1,0 +1,15 @@
+---
+layout: post
+title: "Day 9: Bridge to Horton"
+date: 2020-06-12 13:00:00 +0900
+categories: cclib
+---
+
+I decided to spend most of my time today on understanding Travis CI and modifying the configurations so that the virtual machines are equipped with horton for new bridge tests. The syntax of Travis configuration files were quite simple -- everything in a easy-to-read YAML format and each line corresponded to the commands that anyone would go through to set up the environment.
+
+I was mostly caught up with getting the configuration right for `horton`. Because `horton 2` is quite old at this point, I saw that there are some dependency issues where `horton 2` uses older libraries (i.e. `libxc`) and therefore `pip` commands and `conda` environments complained when I just tried to add `horton` on the list of packages to request.
+
+I think in order to properly set things up, I should either set up so that a `horton` gets a separate `venv` or is manually (or partially) compiled from source so that it can be linked with different versions of libraries like `libxc` (I keep mentioning `libxc` because `Psi4` asks for `libxc5` whereas `horton 2` asks for `libxc2` -- pretty big difference between two).
+
+This would most likely take longer to make sure everything works as intended, so I will be trying to write up test functions simultaneously in the next few days so that I have them ready by the time I have configured Travis CI correctly. I expect this process to be less painful for `horton 3` submodules since it is actively being developed and supports newer versions of Python as well.
+
