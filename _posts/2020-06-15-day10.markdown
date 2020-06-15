@@ -1,0 +1,13 @@
+---
+layout: post
+title: "Day 10: Bridge to Horton (Testing)"
+date: 2020-06-15 13:00:00 +0900
+categories: cclib
+---
+
+Last Friday, my mentors advised me to set up Travis configuration so that `Python 2.7` virtual machine in Travis would test `horton 2` bridge. This was possible because some of other packages that `cclib` has bridge to are not maintained for `Python 2` anyway. This cleared up dependency issues that were present earlier.
+
+Today, I therefore wrote up necessary configuration for Travis to fetch `horton 2` from conda. Then, I finished up test function for the bridge. Basically, it loads a sample data file already included in `cclib` repository (`dvb_un_sp.fchk`). This is a simple path I can take because both `cclib` and `horton 2` supports loading from Gaussian fchk files. For the `makehorton` function, I am basically comparing the values between the horton IOData object that was loaded using `from_file()` function in horton and object that was created from cclib data. The other way around works for `makecclib` function.
+
+When I am able to clear up all issues regarding this bridge to `horton 2`, I will be able to work on bridge to `horton 3` and a wrapper for Hirshfeld type methods. A different (possibly more sensible) testing may also be one of the objectives I will think about.
+
