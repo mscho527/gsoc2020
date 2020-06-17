@@ -1,0 +1,15 @@
+---
+layout: post
+title: "Day 11: Bridge to Horton 3 (Testing)"
+date: 2020-06-17 13:00:00 +0900
+categories: cclib
+---
+
+What has been done today is rather simple extension of what I have been doing this week. Starting from the bridge to `horton 2`, I finished the bridge for `horton 3`, modified settings on `Travis` so that the bridge can be tested, and write test suites to ensure functionality.
+
+Most of the work has been quite analogous to last few day's work and really nearly identical except for the fact that the attributes in `horton 3`'s data structure had newer names.
+
+Starting tomorrow, I should be able to start writing the documentation so that the bridges can be used to perform Hirshfeld-like charge partitioning routines on `horton 2`.
+
+Also, [PR#869](https://github.com/cclib/cclib/pull/869) for Bickelhaupt charges were merged yesterday. :v:
+
