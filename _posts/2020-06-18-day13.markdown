@@ -1,0 +1,17 @@
+---
+layout: post
+title: "Day 13: Bridge to Horton 3 (Testing)"
+date: 2020-06-18 13:00:00 +0900
+categories: cclib
+---
+
+Based on the advice I have received from Dr. Langner yesterday, I have started off by:
+
+1. Separate PR #873 into two PRs (so that the original PR deals only with the bridge for horton 2, and the new PR deals with bridge for horton 3).
+2. Modify `makehorton` function so that the function argument is `ccData` object instead.
+
+Dealing with (1) allowed me to further work with rebasing branches, which wasn't something I am used to as I have mostly used git for personal projects before this summer. Since the commits were readily separable for each version of horton, the conflicts were very minor and was resolvable with a few clicks. This reinforces the importance of making smaller PRs -- which is one of the practices in opensource development I have been learning throughout this summer.
+
+(2) will make it more straightforward to use the bridges for various uses. It breaks the consistency with other existing bridges in `cclib`, but the plan is to update other existing bridges so that they follow the same convention as this `cclib2horton` bridge, so that shouldn't be a problem after the issue is resolved.
+
+Tomorrow, I should be able to move on and write docs about how to efficiently utilize the bridge for calculating Hirshfeld-like charges.
