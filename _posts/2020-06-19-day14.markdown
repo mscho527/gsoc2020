@@ -1,0 +1,11 @@
+---
+layout: post
+title: "Day 14: Bridge to Horton 3 (Splitting PRs)"
+date: 2020-06-19 13:00:00 +0900
+categories: cclib
+---
+
+Based on Dr. Langner's suggestion that I [split the pull requests further](https://github.com/cclib/cclib/issues/880) into so that each PR is as small as possible, I worked on executing this principle today. Working on this also made me think more about the development flow I usually adopt. When I write small codes in science, I find myself coding without much set plan. While this may work when I work individually, I am learning with the experiences this summer that deliberately laying out plans and developing under the plan is the way that works for group work.
+
+Today may not have been the time I used to write any new code, but I believe that the work I have done today would actually help me get more efficient over the rest of the days and weeks this summer. I haven't been able to do so due to the time constraint, but I will be adding the overall plan this summer as Github Issues over the weekend & Monday, following Shiv's advice. This should also help everyone in the `cclib` organization keep track of the progress.
+
