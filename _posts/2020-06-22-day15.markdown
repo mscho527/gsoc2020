@@ -1,0 +1,56 @@
+---
+layout: post
+title: "Day 15: Bridge to Horton 3 (Hirshfeld-like Charges)"
+date: 2020-06-22 13:00:00 +0900
+categories: cclib
+---
+
+Just like most other days, I have started the day by addressing the comments that my mentors have made on the PRs. A good amount of the comments discussed how the functions should be implemented -- and this feedback cycle has been helping me improve computational thinking a lot. Another few comments dealt with the coding style, including small issues like listing modules in alphabetical order to formatting. I haven't really thought much about properly formatting code and how it can greatly affect readability as most of my previous work had been done alone. My mentors' comments and the experience of editing my initial code is building the capacity to collaborate for bigger codebase.
+
+I have spent some of time today preparing the material that would eventually be included in the documentation and will fulfill the motivation for building the bridge to `horton`. Based on `horton` documentation, I have a draft version of example code for calculating Becke charges. For now, I am writing the code here before I confirm the details:
+
+```python
+import cclib
+
+from cclib.method.density import Density
+from cclib.bridge import cclib2horton
+from horton import BeckeMolGrid
+from horton import getgobasis
+from horton.matrix.dense import DenseTwoIndex
+
+# First load ccData object
+filename = "/some/path/to/cclib/data/Gaussian/basicGaussian16/dvb_un_sp.log"
+data = cclib.io.ccread(filename)
+
+# Use bridge function to generate horton IOData object
+ht = cclib2horton.makehorton(data)
+
+# Calculate density matrix using cclib then convert this into horton's DenseTwoIndex object
+d = Density(data)
+d.calculate()
+den = d.density
+
+dsty = DenseTwoIndex(len(ht.orb_alpha))
+dsty._array = den[0] + den[1] # if unrestricted
+
+# Create integration grid for Becke Charges
+grid = BeckeMolGrid(ht.coordinates, ht.numbers, ht.pseudo_numbers, mode='only')
+
+# Define Gaussian basis set
+gob = get_gobasis(ht.coordinates, ht.numbers, default = 'STO-3G') # loaded file in this example was generated on STO-3G basis set
+
+# Calculate grid density
+moldens = gob.compute_grid_density_dm(dsty, grid.points)
+
+# Partition charges
+wpart = BeckeWPart(ht.coordinates, ht.numbers, ht.pseudo_numbers, grid, moldens, local=True)
+wpart.do_charges()
+
+print(wpart['charges'])
+```
+
+Some of the points I need to confirm before including this into docs:
+1. `fchk` files are not parsed with `mocoeffs` in cclib.
+2. Does this need testing?
+3. Any wrappers?
+
