@@ -1,0 +1,11 @@
+---
+layout: post
+title: "Day 16: Bridge to Horton (docs, wrapper)"
+date: 2020-06-23 13:00:00 +0900
+categories: cclib
+---
+
+After making modifications for the horton bridge to address the mistake I have made for frozen cores, I moved on to the documentation. There is quite a big room for change in the documentation at this point since the details of the implementation are not fixed yet. The PR is thus a draft that may change quite a bit in the next few days.
+
+Yesterday, I have talked with one of my mentors, Shiv, about the possibility of creating a wrapper function for population analysis methods in `horton`. He suggested that I create a sort of draft PR that would demonstrate how the function would look like & will behave. I have tried to create something that can replicates other population analysis methods already in `cclib`, such that the functions are invoked by passing `ccData` objects and the resulting charges are stored in `fragresults` attribute. 
+
