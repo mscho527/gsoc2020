@@ -1,0 +1,22 @@
+---
+layout: post
+title: "Day 17: Bridge to Horton (docs), QTAIM"
+date: 2020-06-24 13:00:00 +0900
+categories: cclib
+---
+
+I have started the work today by taking care of the next PR that should be reviewed for `horton` bridge -- which was PR #873 and #883. The former one is the bridge from `horton 2` to `cclib` and the latter is the other way around. Basically, I have rebased the branch associated with the PR so that it take account of the latest PR that was merged (#882) and also added a small comment that `horton 2` support will be dropped in foreseeable future when cclib migrates away from Python 2 support. Dr. Langner suggested that I add this comment to make sure that anyone reading the code understand this context.
+
+Then, I have written a bit more on the documentation part for the bridge and added the part about using the bridge with partitioning functions in `horton` that require pro-atomic densities. Long story short, the pro-atomic densities should be generated using the quantum chemical package of the user's choice and should be loaded as `ProAtomDB` object in horton as this information needs to be supplied in order to calculate Hirshfeld-related charges (i.e. Iterative Hirshfeld, Iterative Stockholder).
+
+Lastly, I feel that it is now timely to start looking at the theoretical background related to Bader's QTAIM charges and thus have started to do so. The main issue with Bader charges is that there are different implementations out in the world, each using different integration techniques. Thus it is necessary that I understand the theoretical background of the QTAIM charges and also the numerical methods that were introduced in relation to calculating this charge. I think I will try to include a short summary of what I have read in the blog posts as well so that I have a short enough text to refer to while writing the code itself.
+
+#### Charge Density
+
+An intuitive starting point is, of course, the charge density in molecules. Charge densities arise from the wavefunction of the molecule and are expressed as ***&rho; (r\) = \| &psi; (r\) \| <sup>2</sup>*** . In `cclib`, information about the basis set is stored in `gbasis` attribute. Thus, at some point in space, charge density can be determined from by plugging in the distance and the molecular orbital coefficients into the Gaussian basis used in the calculation.
+
+#### Bader's AIM
+
+Bader's definition of 'boundaries' for each atom in a molecule is defined using the charge density. It is defined as the surface where ***&nabla; &rho;(r\) &sdot; n(r\) = 0***. In words, it is a surface where flux is equal to zero for the gradient vector field of electronic density. As the number of atoms in a molecule increase, it becomes nontrivial to find these critical points where the boundaries of each atom are set. Therefore, there are different numerical algorithms that are used to approximate these boundaries efficiently,
+
+
