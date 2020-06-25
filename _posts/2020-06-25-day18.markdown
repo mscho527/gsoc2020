@@ -1,0 +1,27 @@
+---
+layout: post
+title: "Day 18: Bridge to Horton, QTAIM"
+date: 2020-06-25 13:00:00 +0900
+categories: cclib
+---
+
+Similarly to other days, I started by rebasing the PRs that can be reviewed and merged against master. Next on the queue is PR #883, which should add cclib --> horton 2 bridge function.
+
+For QTAIM, a good starting point seems to be what is written in [Multiwfn documentation](http://sobereva.com/multiwfn/Multiwfn_manual.html#_Toc9331505). The documentation here explains that there are various numerical methods used to calculate QTAIM basins and the boundaries. The oldest and perhaps most intuitive method is the first one in the list -- analytical methods. This is explained in more detail in a [presentation](https://notendur.hi.is/egillsk/stuff/annad/egillsk_bader_pres_150206.pdf) by Egill Skulason.
+
+#### Analytical Methods for QTAIM
+
+From the presentation by Egill Skulason, the steps to calculating QTAIM basins and charges analytically can be decomposed into:
+
+1. Finding expressions for the electron density ***&rho;(r\)***
+2. Look for critical points (where ***&nabla;&rho;(r\) = 0***)
+3. Calculate the Hessian matrix at the critical points and obtain the eigenvalues to get the curvature of the gradient vector field of electron density at the critical points.
+4. From the signs of the eigenvalues, evaluate the signature value. Signature value = sum of the signs of eigenvalues.
+5. Classify the critical points -- four signature values are possible:
+-- -3: Nuclear Attractors (usually nuclei of atoms)
+-- -1: Bond Critical Points (the point where critical points lie between two atoms in a bond)
+-- +1: Ring Critical Points (the point where critical points lie in a plane of atoms that participate in a bond; i.e. between carbons in cyclopentane)
+-- +3: Cage Critical Points (the point where critical points lie within atoms arranged in three dimensions; i.e. in a biomolecular envelope)
+6. From the determined boundaries, integrate charge density over space to evaluate the charges.
+
+It seems like a logical first step would be to 1) try calculate charge densities in space from molecular orbital coefficients and basis sets and 2) evaluate the gradients.
