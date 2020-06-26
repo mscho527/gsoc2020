@@ -1,0 +1,13 @@
+---
+layout: post
+title: "Day 19: Bridge to Horton, QTAIM"
+date: 2020-06-26 13:00:00 +0900
+categories: cclib
+---
+
+Today, I started by rebasing PR #884 against master branch following the PR merge for #883 yesterday. Then, I tried to increase the coverage of the unit tests for the bridge by tweaking the test functions. One thing I tried to do is to read in `log` file and `fchk` files for the tests. Currently, only `fchk` files are read in the test suite. I tested if using `log` file would improve the coverage, because `openbabel` does not read too much information from `fchk` files at the moment, therefore affecting the number of attributes imported in `cclib`.
+
+Then, I tried to dip my feet into QTAIM part. The logical first step would be to evaluate the charge densities from the MO coefficients and the basis sets. For the basis sets, `cclib` stores the information in `gbasis`, which is in the format used in `PyQuante`. I had spent some time reading their documentation to get a grip of how the coefficients involved in the basis functions of the GTOs used in calculation are represented in `gbasis` attribute.
+
+Next step would be to actually generate the charge densities and see if it matches what is expected. Perhaps I could try to generate a plot fixing one dimension (so as a two-dimensional cross section) and see if it matches what is expected.
+
