@@ -1,0 +1,13 @@
+---
+layout: post
+title: "Day 20: QTAIM, Bridge to horton"
+date: 2020-06-29 13:00:00 +0900
+categories: cclib
+---
+
+I have started the day (and the week) by making changes suggested by my mentors on the PRs #884 and #879. Apart from fixing the code so that it fits in the naming conventions, learning the existence of `numpy` function `asanyarray` was interesting. It converts any array-like object into a `numpy` array and simply passes the input itself if it is already a `numpy` array. This effectively replaces some of some ugly type checking code.
+
+Then, I started to work on QTAIM charges. The first step is quite simple *(in a theoretical sense)*. I have started drafting the code that evaluates charge densities from the information that is available in `ccData`'s parsed data. `ccData` has attribute `gbasis` that stores the coefficients associated with the Contracted Gaussian Basis Sets. To reconstruct ***&psi;*** from this information, using ***G=N e<sup>-&alpha;r<sup>2</sup></sup> x<sup>a</sup> y<sup>b</sup> z<sup>c</sup>*** does the job. ***a, b,*** and ***c*** are determined based on the orbital type (*s, p, d, f*). Note also that ***r*** in the exponent, as well as ***x, y,*** and ***z*** needs to be relative to the center of each atom.
+
+This is kind of tragic and funny -- while writing this blog post, I've just noticed PR #757 in `cclib` and the existing code in `cclib.method.volume` that seems to be almost complete but with a TODO comment for restricted calculations. I should talk about this with my mentors, but it looks like starting off from this existing code would be a better and more effective way to go.
+
