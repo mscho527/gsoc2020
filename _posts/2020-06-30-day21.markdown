@@ -1,0 +1,13 @@
+---
+layout: post
+title: "Day 21: Updating pyquante bridge"
+date: 2020-06-30 13:00:00 +0900
+categories: cclib
+---
+
+Starting with rebasing the next PR that can be reviewed -- #879, I have spent most of today in updating the PyQuante bridge function in `cclib`. The preexisting implementation works only with Python 2.x.x and considering that `cclib` is trying to drop Python 2.x.x in some foreseeable future, it makes sense to update this to newer PyQuante2, which supports Python 2 and 3.
+
+Since this is a bridge as well, the code mostly resembles the `cclib2horton` bridge, minus the fact that only cclib to pyquante direction is implemented for this bridge. This is because the bridge is of most use for the `cclib.method.volume` routine, which uses pyquante to take care of the low-level orbital manipulations to obtain charge densities on a grid.
+
+After two PRs that are related to this -- PR #893 for new Travis CI configuration and PR #894 for updated bridge -- are merged in, the next step would be to update the `cclib.method.volume` routine itself to continue into writing a sensible test and finally QTAIM charge routine.
+
