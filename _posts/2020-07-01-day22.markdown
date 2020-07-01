@@ -1,0 +1,16 @@
+---
+layout: post
+title: "Day 22: Updating pyquante bridge, Updating volume function"
+date: 2020-07-01 13:00:00 +0900
+categories: cclib
+---
+
+Happy first-day-of-July! It is interesting how half of this year has already passed.
+
+Similar to last few days, I started by making the changes suggested by my mentors about the horton bridge that I've written last week. Some of the issues were what I completely missed, so it has been very helpful that my mentors gave me the feedback that was necessary.
+
+After that, I finished updating pyquante bridge. It is 1) updated to work with `pyquante2` as well as the older `PyQuante` and 2) updated to anticipate `ccData` object as input parameter. This should be the right direction since Python 2.x.x support would be dropped in a foreseeable future.
+
+Then, I've started taking look at the `volume` method. `Volume` object in the `volume.py` file, which 1) stores data on a grid, 2) prints out cube and `PyVTK` files. This object itself shouldn't need much of updates, since `PyVTK` has Python 3 support. The functions that read in the basis function to construct ***&psi;*** (`getbfs` and `wavefunction`) and the function that calculates charge density on the grid specified by `Volume` object (`electrondensity`) would have to be updated first so that it accepts `ccData` object and second with modified pyquante2 bindings. Then, some tests should be added to compare the `cube` outputs to verify that it works as intended. The current test functions do not compare whether individual points on the grid have correct charge densities. From yesterday's call with my mentors, we figured out that `Psi4` has `psi4.cubeprop` function that should be good for testing purposes.
+
+
