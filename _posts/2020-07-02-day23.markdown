@@ -1,0 +1,13 @@
+---
+layout: post
+title: "Day 23: Finalizing horton bridge documentation"
+date: 2020-07-02 13:00:00 +0900
+categories: cclib
+---
+
+After going through the PRs that had received comments from my mentors, I have spent time today finalizing the bridge documentation for horton.
+
+I have wanted to make a wrapper-like function for the Hirshfeld charge routines in `horton` at some point, but because these charges require some calculations to be done externally (to generate pro atomic db), it seemed that the rational choice is to direct users to do the part in the documentation.
+
+Not much happened today, but I should be able to work more on updating the `volume` method tomorrow. Hopefully, I could compare the numbers with `cube` files from Psi4 tomorrow or next Monday.
+
