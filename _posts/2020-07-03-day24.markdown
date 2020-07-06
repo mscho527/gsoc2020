@@ -1,0 +1,14 @@
+---
+layout: post
+title: "Day 24: Updating volume function"
+date: 2020-07-03 13:00:00 +0900
+categories: cclib
+---
+
+Today, I've mainly worked in finalizing the updates needed for `volume` method so that it works with the new bridge. The functions were modified slightly as well to follow the convention of asking for `ccData` inputs rather than the explicit values stored as attributes of the `ccData` objects.
+
+There is one block in the pre-existing code that I am not entirely sure about -- where `TODO: ROHF` is written. From what I know, under the format this `electrondensity` method is written, if the user decides to calculate the densities in an event `homos` are different for alpha and beta orbitals, user can simply use change how the input mocoefficients are spliced. This implementation is perhaps from when `cclib` was on SourceForge.
+
+Then, I've started to write equivalent method that would work with `pyquante2`. Data structure and/or function names are slightly different but the overall structure is quite similar, so I should be able to finish this on Monday and work towards writing a better test (using cube files) should be possible mid next week. Happy holidays!
+
+
