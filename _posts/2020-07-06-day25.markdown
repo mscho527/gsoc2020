@@ -1,0 +1,11 @@
+---
+layout: post
+title: "Day 25: Updating volume function"
+date: 2020-07-06 13:00:00 +0900
+categories: cclib
+---
+
+Today, I finalized the PR related to updating volume function so that it works with new cclib2pyquante bridge. I then finished working on adding pyquante2 support for the volume function.
+
+As discussed with my mentors already though, the test suite for the volume function (which calculates electron charge density and wavefunction) only checks on the integrated value over a certain volume. In order to adapt this into grid based method in QTAIM, another test suite that compares the values over each point in the grid will be implemented tomorrow. The current plan is to use `Psi4`, since this is also based on python and is open source as well. After crossing off this test suite, I will be able to move on to the actual implementation of the QTAIM method as described in Henkelman group's paper.
+
