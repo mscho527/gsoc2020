@@ -1,0 +1,13 @@
+---
+layout: post
+title: "Day 26: Verifying cube files"
+date: 2020-07-07 13:00:00 +0900
+categories: cclib
+---
+
+Objective for today was to verify that the cube files generated using `cclib.method.volume` matched with the expected values. While doing this, I found a likely bug in the function. When the number of grid points were determined in the function, there was an off-by-one error. After submitting a PR addressing this issue, I generated `cube` file using Psi4 and tried to compare the values. What I expect is that the values calculated from `electrondensity` will be comparable to `Dt.cube` and values calculated from `wavefunction` will be comparable to `Psi_a_1...cube` files.
+
+It looks like the wavefunctions are being calculated correctly -- there is some discrepencies in the data because `cclib` uses angstroms and `Psi4` uses bohr. Some errors are caused from the fact that the grid itself contains error in 1e-3 level.
+
+For electron density, there is pretty big difference which I should investigate further. I may be making mistakes in how I am supplying the flags to Psi4. I'll look more into this and hopefully make progress tomorrow.
+
