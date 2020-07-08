@@ -1,0 +1,11 @@
+---
+layout: post
+title: "Day 27: Verifying cube files"
+date: 2020-07-08 13:00:00 +0900
+categories: cclib
+---
+
+Fortunately, I was able to find the source of error that was causing the discrepancies between cube file from `Psi4` and `cclib`. I was omitting an optional argument for pyquante2 `cgbf` object in the `getbfs` method, which really is necessary for my purposes. After fixing this, writing a test suite routine that compares the main contents of the cube file (which is the data on grid points) has added a concrete test that will make sure that I am working based on a trustworthy input data to build QTAIM charges.
+
+Starting tomorrow, I will try implementing Henkelman group's algorithm for calculating QTAIM charges.
+
