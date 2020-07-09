@@ -1,0 +1,11 @@
+---
+layout: post
+title: "Day 28: Implementing Bader's QTAIM"
+date: 2020-07-09 13:00:00 +0900
+categories: cclib
+---
+
+With the verified `cube` file from yesterday, I had all the ingredients that I would need to implement Henkelman group's algorithm for calculating Bader's QTAIM charges. Thus, today was mainly about writing up the method to actually calculate these charges. I have the first draft for this -- which needs some more coding and a full new set of testing. I've decided that I would take care of the non-edge elements in the grid first, because dealing with edge elements can be messy. (I need to revisit this and add a check for edge elements to ensure accuracy) Anyway, the algorithm Henkelman group proposed is quite simple -- it identifies the Bader areas (or areas of interest for integrating charge densities assigned to each grid point) based on the interpolated gradients, which is just ***(&rho;(r+&Delta;r) - &rho;(r\))/|&Delta;r|*** . In each starting point, the walker advances to the direction with greatest gradient. If the point of maximum gradient is the current position, that is considered the maximum. Here, a single Bader region is defined as the points that lie in paths that end up in same maximum grid point.
+
+Then, from the determined Bader areas, all that is left is to integrate the charge densities over the area of interest. I am hoping that I have a solid working version by end of the week!
+
