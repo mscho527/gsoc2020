@@ -1,0 +1,13 @@
+---
+layout: post
+title: "Day 29: Implementing Bader's QTAIM"
+date: 2020-07-10 13:00:00 +0900
+categories: cclib
+---
+
+After working on the algorithm implementing Bader's QTAIM for `cclib`, I have spent most of the time today trying to catch bugs and flaws in the implementation. I think we all know that it takes roughly the same amount of time to debug compared to the time to actually write a code (!)
+
+It turns out that the current implementation divides (or recognizes) areas where electron density is fairly equal across different grids to be of different Bader space. I was also naively placing whatever Bader space the atom of interest is located in to be the particular atom's Bader space assignment. However, it looks like the space partition can be a bit wild around where the atoms are located.
+
+The next steps should be to fix these algorithmic issues. I think I should try to plot both the electron density and Bader spaces before I have a better idea of how to fix these numerical issues.
+
