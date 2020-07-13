@@ -1,0 +1,17 @@
+---
+layout: post
+title: "Day 30: Implementing Bader's QTAIM"
+date: 2020-07-13 13:00:00 +0900
+categories: cclib
+---
+
+I spent most of today debugging Bader's QTAIM code using H<sub>2</sub>O. I believe that most of the bugs have been fixed. The only thing that needs to be added at this point is to add the electron densities from the grids on each edge. These values should be minimal considering the fact that the charge densities are very low at far distances.
+
+![Electron Charge]({{ site.url }}/assets/13Jul2020-cdensity.png)
+
+This is the *matplotlib* diagram of the electron densities for H<sub>2</sub>O on a grid with 0.2 angstroms spacing. Using the Bader charge implementation that I have now, the area can be partitioned into three spaces like this:
+
+![Bader areas]({{ site.url }}/assets/13Jul2020-bader.png)
+
+The values that were obtained for a grid with edge lengths of 10 angstroms and 0.2 angstroms spacing were `6.8112, 0.3593, 0.5138`. In comparison, `bader` package reported charges of `6.9378, 0.3639, 0.3827`. The differences between two hydrogen atom charges are smaller in `bader` package because the package uses weight based corrections for the grids near borderline between Bader spaces. This can be added when I am certain that the implementation is fairly bug-free.
+
