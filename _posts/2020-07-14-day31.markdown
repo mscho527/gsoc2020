@@ -1,0 +1,12 @@
+---
+layout: post
+title: "Day 31: Bader's QTAIM"
+date: 2020-07-14 13:00:00 +0900
+categories: cclib
+---
+
+Today, I spent most of my time making sure that the circular imports that were causing errors in Travis testing do not happen. Basically, I fixed `volume` method to ask for `cclib2pyquante` bridge only in the part that it needs the bridge.
+
+Then, I made sure that the testing for coarse grid of H<sub>2</sub>O returns a fairly reasonable charge (compared to the results obtained using `bader` package). Doing the tests with finer grid requires quite long time which is unsuitable for simple test suites because the method to calculate the charge densities does take long. When I tweak the `volume` method so that it can read in cube files, I should be able to supply pre-calculated cube files and start from there. The code that actually calculates the QTAIM charges do not take too long compared to the cube file, since it is merely few simple arithmetics on each grid point.
+
+
