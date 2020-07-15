@@ -1,0 +1,14 @@
+---
+layout: post
+title: "Day 32: Bader's QTAIM -- Docs & Tests"
+date: 2020-07-15 13:00:00 +0900
+categories: cclib
+---
+
+With the QTAIM code up as a PR ready for review, I spent most of the time today trying to add a few more tests for Bader's QTAIM code and writing up a first draft of docs for the new code.
+
+Basically, I've added 1) a test that compares the total Bader charges to the total number of electrons in HF and 2) a test that compares the charges assigned to carbon atoms in benzene.
+
+For the docs, I have added something similar to the existing documentations for other charge methods. It might be a good idea to add some more explanation about the numerical algorithm that I used and I may add it tomorrow or the day after tomorrow depending on how the PR reviews and further fixes go.
+
+
