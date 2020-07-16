@@ -1,0 +1,14 @@
+---
+layout: post
+title: "Day 33: Bader's QTAIM -- Reading from cube"
+date: 2020-07-16 13:00:00 +0900
+categories: cclib
+---
+
+After making some changes that were requested from my mentors on the QTAIM code, I've spent today adding a method that reads in `.cube` files to construct `Volume` objects. This would allow users to start the Bader calculations from pre-calculated densities and would also make it possible to run tests on a finer grid without causing Travis to complain about the test taking too long without any output.
+
+While adding the read-in routine for the `.cube` file, I figured out that the write-out routine that has pre-existed has a tiny bug when the grid information is written. `cclib` assumes the origin to be the leftmost and topmost point in the grid, whereas `cube` files assume origin to be the center of the grid where the origin is moved into.
+
+I am now generating a sample `.cube` file with relatively fine grid (.01 angstoms spacing) which would be added to the test (hopefully) tomorrow.
+
+
