@@ -1,0 +1,13 @@
+---
+layout: post
+title: "Day 34: Bader's QTAIM -- Reading from cube"
+date: 2020-07-17 13:00:00 +0900
+categories: cclib
+---
+
+Similar to other days, I started by addressing the points that my mentors made for the PR. It looks like `Bader` code is quite there and will be all good and shiny in a few days.
+
+Other than that, I made sure that all other PRs (that mostly deal with making sure that QTAIM charges can be calculated from `cube` files) are working as expected. I am thinking of using a pre-generated cube file for benzene as test input here. Unlike water, the number of basis functions (and its corresponding primitives) are much larger and thus requires more time to calculate the charge densities. By using a pre-calculated charge densities on the grid for this example, I should be able to exemplify how this new small functionality would prove useful in certain cases. Testing the charges on benzene is very simple (it would just involve comparing the charges placed on each carbon atom) and does not involve comparison against known values / calculations from other packages so that establishes another reliable test case.
+
+After this, I should be able to finalize the docs by adding contents about reading in cube files, and perhaps move on to DDEC.
+
