@@ -1,0 +1,12 @@
+---
+layout: post
+title: "Day 35: Bader's QTAIM -- Docs, Finalizing"
+date: 2020-07-20 13:00:00 +0900
+categories: cclib
+---
+
+After addressing the points raised on the PR regarding QTAIM charges, I mainly worked on finishing up the (relatively) bigger test and writing the documentation. Test case that compares the charges assigned on each carbon atom from which the calculations are done from the charge densities imported from grid is ready. The documentations were also updated to add this new functionality and is ready for review.
+
+Starting tomorrow, I think I can start reviewing the theory related to DDEC6, which is the last partial charge calculation method I mentioned in the proposal.
+
+
