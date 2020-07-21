@@ -1,0 +1,13 @@
+---
+layout: post
+title: "Day 36: Bader's QTAIM -- Finalizing"
+date: 2020-07-21 13:00:00 +0900
+categories: cclib
+---
+
+Today, I have spent most of my time addressing the issues raised for the QTAIM code by my mentors. The highlight, I suppose, that I worked on today was to use `generator` objects to iterate over the three dimensional loop rather than explicit for loops. This was something I was not used to, because I used to work with C++ style code more. With a very Pythonic (!) one-line that goes in the lines of `(x, y, z for x in xindices for y in yindices for z in zindices)`, the three-level loop could be pretty much munched into a single for each loop. This definitely enhances the readability of the code.
+
+I have also started to peek over the DDEC6 material -- starting from the original paper. This method is a bit more involved than the Bader's QTAIM method (the article that proposes DDEC6 is split into three separate papers) and may require some time for me to fully develop a picture of what needs to be done.
+
+I will be off-the-grid tomorrow and the day after tomorrow due to a family event -- it is customary for Koreans to have an extended family meeting on the annual anniversary dates of when the (grand)parents passed away. I am traveling down south to the city of Busan (which is the second largest city in the country) to participate in this.
+
