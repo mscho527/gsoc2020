@@ -1,0 +1,35 @@
+---
+layout: post
+title: "Day 37: DDEC6 -- Theory"
+date: 2020-07-24 13:00:00 +0900
+categories: cclib
+---
+
+Now that the PRs for QTAIM are pretty much finalized, I am starting to digest the theories related to DDEC6 so that I can start implementing this soon. Calculating DDEC6 charges involve seven steps which include very specific procedures and coefficients that were optimized based on the method developers' parameter survey.
+
+Before going into the details mentioned in the original paper (doi:10.1039/c6ra04656h), the paper sets up a few mathematical conventions. It first lists each atom that constitute a molecule as *A*, and describes the unit lattice cell with *L<sub>1</sub>, L<sub>2</sub>, and L<sub>3</sub>*. Lattice vectors associated with the setup is *v<sub>1</sub>, v<sub>2</sub>, and v<sub>3</sub>*, whereas the location of the grid relative to the center of the atom is set as *R<sub>A</sub>*. Here, methods like Bader's QTAIM which partitions based on the charge density generally has a form of **&theta;(r\) = &rho;(r\) - &Sigma;<sub>A, L</sub> &rho;<sub>A</sub>(r<sub>A</sub>)**. Here, A and L in the summation indicates each constituent atoms and grid respectively.
+
+In this setup, the aim is to optimize **&rho;<sub>A</sub>(r<sub>A</sub>)/&rho;(r\)** in a certain way. In vectorized charge partitioning, this quantity is equated with spherically symmetric atomic weighing factor **w<sub>A</sub>(r<sub>A</sub>) / W(r\)**, where **W(r\) = &Sigma;<sub>A, L</sub>w<sub>A</sub>**. In ESP charges, from the fact that the atomic charges can be approximated as point charges, **W(r\) = &rho;(r\), &rho;<sub>A</sub>(r<sub>A</sub>) = w<sub>A</sub>(r<sub>A</sub>)**.
+
+In Hirshfeld method, w is derived from reference densities of neutral atom. This is represented into an equation **w<sub>A</sub><sup>HD</sup>(r<sub>A</sub>) = &rho;<sub>A</sub><sup>ref</sup>(r<sub>A</sub>, q<sub>A</sub><sup>ref</sup>=0)**.
+
+Iterative Hirshfeld improves on Hirshfeld method and assigns **q<sub>A</sub><sup>ref</sup> = q<sub>A</sub>** in a self-consistent manner.
+
+Iterative Stockholder method starts the partition from **&rho;(r\)** and satisfies the equation **w<sub>A</sub><sup>ISA</sup>(r<sub>A</sub>) = &rho;<sub>A</sub><sup>avg</sup>(r<sub>A</sub>)**.
+
+In DDEC, first concept that is introduced is *'conditioned charge densities'*. This quantity is defined as **&rho;<sub>A</sub><sup>conditioned</sup>(r<sub>A</sub>) = &rho;<sub>A</sub><sup>generic</sup>(r<sub>A</sub>) * <&rho;(r\) / &rho;<sup>generic</sup>(r\)><sub>r<sub>A</sub></sub>**. Here, *<><sub>r<sub>A</sub></sub>* denotes spherical averaging and generic refers to any charge densities that were obtained/prepared for use in AIM methods.
+
+In the paper, charge densities that were conditioned one time from reference ion/atoms are indicated with the symbol **Y<sub>A</sub><sup>avg</sup>(r<sub>A</sub>)**. Then, in DDEC6, **w<sub>A</sub>(r<sub>A</sub>) = (&rho;<sub>A</sub><sup>ref</sup>(r<sub>A</sub>))<sup>1/5</sup>(&rho;<sub>A</sub><sup>avg</sup>(r<sub>A</sub>))<sup>4/5</sup>**.
+
+DDEC6 charges are calculated in largely 7 steps. In the first and second step, ion charge values are obtained. In the first step, following calculations are made:
+1. Start from the charge densities of the molecule and set **w<sub>A</sub><sup>1, Stock</sup>(r<sub>A</sub>) = &rho;<sub>A</sub><sup>ref</sup>(r<sub>A</sub>, 0)**. 0 in the parenthesis indicates that the no ionic assumptions are made yet. 
+2. Then calculate **N<sub>A</sub><sup>1, Stock</sup> = &oint; (w<sub>A</sub><sup>1, Stock</sup>(r<sub>A</sub>) / &Sigma;<sub>A, L</sub> w<sub>A</sub><sup>1, Stock</sup>(r\))**
+3. Set **w<sub>A</sub><sup>1, Loc</sup>(r<sub>A</sub>) = &rho;<sub>A</sub><sup>ref</sup>(r<sub>A</sub>, 0)<sup>4</sup>** and carry out step 2.
+4. Calculate **q<sup>Stock</sup> = Z<sub>A</sub> - N<sub>A</sub><sup>1, Stock</sup>** and likewise for localized weight.
+5. Set **q<sub>A</sub><sup>1, ref</sup> = (1/3)q<sub>A</sub><sup>1, Stock</sup> + (2/3)q<sub>A</sub><sup>1, Loc</sup>**.
+
+In the second step of DDEC6 routine, first step (which is listed above) is repeated simply with **q<sub>A</sub><sup>1, ref</sup>** instead of zero.
+
+As seen in this post, calculating DDEC6 charges involve quite a lot of conditioning and optimizing steps based on the numerical behavior that the researchers were able to find through parameter sweeps. I will cover the rest of the steps involved in DDEC6 charge calculation (steps 3-7) in a later post. Happy weekends!
+
+
