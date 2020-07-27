@@ -1,0 +1,20 @@
+---
+layout: post
+title: "Day 38: DDEC6 -- Pre-calculation Routines"
+date: 2020-07-27 13:00:00 +0900
+categories: cclib
+---
+
+After making small changes to the Bader's QTAIM PRs based on my mentors' comments, I started to lay out what I would need to implement DDEC6 charges, which are calculated using 7-step algorithm.
+
+A natural milestone in this is the first two steps, which are similar (and are a bit self-consistent in a sense) to each other. But there are a few functionalities that needs to be added to `density` class in `cclib` before I can jump into this. I might find a few more to the list, but to start, 
+
+1. a function that normalizes the density matrix
+2. a function that reads in charge densities of atoms and ions from the files provided by `chargemol` (in long term, there could be some sort of helper function that generates the input files for the user based on the grid)
+3. a function that interpolates two density matrices to calculate density matrix for molecule with non-integer ions
+
+are needed. (3) is necessary because step 2 of the DDEC6 algorithm runs based on the charges determined in step 1 of the algorithm, which are not necessarily integers.
+
+I have a first version for (1) and will work on 2 and 3 tomorrow.
+
+
