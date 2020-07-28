@@ -1,0 +1,9 @@
+---
+layout: post
+title: "Day 39: DDEC6 -- Pre-calculation Routines"
+date: 2020-07-28 13:00:00 +0900
+categories: cclib
+---
+
+It turned out that the normalizing function is not necessary for the implementation of DDEC6 charges. There is still a need for reading in shell charge densities from `chargemol`, so this was what I worked on mainly today. After this, I can work on setting up the grid and condition the reference density so that the first step of DDEC6 routine can be carried out.
+
