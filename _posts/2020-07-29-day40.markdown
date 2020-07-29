@@ -1,0 +1,9 @@
+---
+layout: post
+title: "Day 40: DDEC6 -- Pre-calculation Routines"
+date: 2020-07-29 13:00:00 +0900
+categories: cclib
+---
+
+For the work I've done yesterday, my mentors commented that I could use pro-atom densities from horton, since licensing for `chargemol` was a bit ambiguous on whether a few files from the program can be redistributed from our end. Therefore, most of the time today was devoted in adding a routine to read pro-atom densities from horton's h5py-formatted file. Horton has a number of non-uniform grids that are used for the density (the default grid itself is non-uniform) so another variable had to be added that stores the distance of the shells from the atomic core. Tomorrow, I project that I should be able to work on the first step of DDEC6 algorithm.
+
