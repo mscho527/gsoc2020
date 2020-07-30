@@ -1,0 +1,9 @@
+---
+layout: post
+title: "Day 41: DDEC6 -- Step 1"
+date: 2020-07-30 13:00:00 +0900
+categories: cclib
+---
+
+After reflecting my mentors' comments on the pre-calculation routines, I spent most of the time today trying to implement the first step of the calculation routine. This involves calculating the stockholder-type charges (which equals to Hirshfeld charges when ***q*** = 0), evaluating localized charges and processing two to determine updated reference charges. Although I have a first draft of the code as a draft PR, I am not getting the values that I expected to see (the # of total electrons do not even reach close enough to the total number of electrons -- note that Hirshfeld charges are not guaranteed to sum up to the number of electrons, though). I will try to address this tomorrow and hopefully work through the second step.
+
