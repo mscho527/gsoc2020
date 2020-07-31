@@ -1,0 +1,16 @@
+---
+layout: post
+title: "Day 42: DDEC6 -- Step 1"
+date: 2020-07-31 13:00:00 +0900
+categories: cclib
+---
+
+Today, I have spent most of the time fixing the results I obtained for the first step of the DDEC6 algorithm yesterday. So, it turned out that there were two major problems:
+
+1. Localized charges and Stockholder charges (which are the two charges calculated for step 1 of DDEC6) are quite noticeably sensitive to grid density.
+2. `horton` grid was in bohrs rather than angstroms
+
+First issue was easy to resolve thanks to the routine I have written for Bader's QTAIM charges which reads in cube files. I could just start from a pre-calculated dense grid.
+
+Second issue was a bit gruesome to figure out, since `horton` documentation seemed to suggest that the units are in angstroms. It turns out that when the grid is generated, it asks user input of the specifications of the grid in angstroms. However, internally, the values are stored in bohrs. Fixing this allowed me to obtain reasonable values for the reference charges from the step 1 of the DDEC6 algorithm. Cool!
+
