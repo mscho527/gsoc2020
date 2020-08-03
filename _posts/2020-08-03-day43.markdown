@@ -1,0 +1,13 @@
+---
+layout: post
+title: "Day 43: DDEC6 -- Step 2"
+date: 2020-08-03 13:00:00 +0900
+categories: cclib
+---
+
+After addressing the comments that my mentors gave for step 1 of the DDEC6 algorithm, I have written a small PR that calculates step 2 reference charges for DDEC6. Basically, it uses the reference charges that were obtained in step 1 and interpolates the radial densities of the ion/atoms with *ceiling(q<sup>ref</sup>)* and that with *floor(q<sup>ref</sup>)*. Then, using the updated radial proatom densities, reference charges are again evaluated.
+
+When compared with the values obtained in `chargemol`, I was able to observe quite close value (about 8% difference -- between .3840 and .4161 for hydrogen in water molecule). In the test suite, the tolerance was set to be a bit larger than this because `horton` proatomic charges are used in the test suite.
+
+Tomorrow, I am expecting to write a function that conditions the proatomic densities to obtain ***&rho;<sup>cond</sup>*** for each atom. This should take care of step 3 in the DDEC6 algorithm.
+
