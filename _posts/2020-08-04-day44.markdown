@@ -1,0 +1,13 @@
+---
+layout: post
+title: "Day 44: DDEC6 -- Step 3"
+date: 2020-08-04 13:00:00 +0900
+categories: cclib
+---
+
+Now that step 2 of DDEC6 algorithm had been sent as a PR yesterday, I started off by responding to my mentors' suggestion that having a `integrate` function take care of the weights applied on each grid point would be nice. Having this allows removal of `copy.deepcopy` calls on the density matrix, which can be quite expensive (in terms of memory) for larger systems.
+
+Then, I moved on to the third step of DDEC6. This is the perhaps most extensive and complex part of the implementation. It involves conditioning the charges so that it resembles both the pro-atom densities and the total density on the grid. Nothing is theoretically demanding for this step, but when implementing this step, there is a lot of spherical averaging, iterative routines, and switch-case type steps that complicate the code. I am trying to factor out some parts of the (repeated) code so that the code maintains some degree of readability, but this is perhaps something I would need my mentors' opinions ultimately.
+
+It is not so easy (nor efficient) to layout all the fine details of step 3 here in the blog due to its specific and route-dependent nature. A flow diagram is on ESI of the original paper (doi:10.1039/c6ra04656h) as Figure S1. I am not quite done with implementing this, but am at halfway through. Hopefully, I'll have a better picture tomorrow.
+
