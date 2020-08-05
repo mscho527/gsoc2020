@@ -1,0 +1,14 @@
+---
+layout: post
+title: "Day 45: DDEC6 -- Step 3"
+date: 2020-08-05 13:00:00 +0900
+categories: cclib
+---
+
+I have spent most of the time today finishing up the implementation of step 3 for the DDEC6 charges. Most of the time was devoted to finding bugs and making sure the types and dimensions are correct in each step of the calculation.
+
+To confirm the results that I am generating from the implementation, I have added a few lines in the fortran source code for `chargemol` so that it prints out intermediate values *(such as &tau; and &rho<sup>cond</sup>)*. These are not printed out normally in `chargemol` but are necessary for checking the progress.
+
+I have a draft of the step 3 implementation as a draft PR, but this needs some more work to ensure that everything is heading to the right direction and that the code is optimized.
+
+
