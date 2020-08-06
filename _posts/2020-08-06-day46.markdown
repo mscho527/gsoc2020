@@ -1,0 +1,10 @@
+---
+layout: post
+title: "Day 46: DDEC6 -- Step 3"
+date: 2020-08-06 13:00:00 +0900
+categories: cclib
+---
+
+I was trying to get step 3 of the DDEC6 algorithm crossed off today, but it seems like there is something wrong that I am doing with the spherical averaging. I am seeing values deviate greatly for elements of `y_a` which are near the nuclei. I can't say much why this is happening but should ask for assistance from my mentors today. :(
+
+
