@@ -1,0 +1,12 @@
+---
+layout: post
+title: "Day 47: DDEC6 -- Step 3"
+date: 2020-08-07 13:00:00 +0900
+categories: cclib
+---
+
+Good news -- I was able to obtain correct conditioned densities and tau values and cross off step 3 of the DDEC6 algorithm. The issue was basically that after step 2 of the algorithm, the proatom densities associated with each atom were an interpolated values between two ions (or atom). This caused some proatom densities to not sum up to the expected number of charges. Although this was not mentioned in the paper or ESI, I dug up that in the source code of `chargemol`, there is a routine that is run in step 3 of the algorithm that normalizes these densities to the expected charges. With these numbers, I was able to run the implemented code. Without correct charges, the iterative method in step 3 that determines ***&Psi;<sub>A</sub>*** were not working correctly, leading to unexpected weights placed on ***&rho;<sub>cond</sub>*** and ***&tau;*** .
+
+Now that the code works as expected, I need to peruse the code again and make sure that no duplicate (or extraneous) code is written. I tried to factor out some repeated routines, but some may remain as I haven't taken a good look onto it and the algorithm is quite long. After that, on Monday, I should be able to move on to step 4.
+
+
