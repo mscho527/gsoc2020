@@ -1,0 +1,14 @@
+---
+layout: post
+title: "Day 48: DDEC6 -- Step 4-7 (1-4)"
+date: 2020-08-10 13:00:00 +0900
+categories: cclib
+---
+
+Today, after addressing the issues that my mentors pointed out, I moved onto the rest of the DDEC6 algorithm. Steps 4-7 in the algorithm are basically identical with small differences (one can even consider this iterative). Each step is consisted of seven substeps where ***w<sub>A</sub>(r<sub>A</sub>)*** are calculated and optimized. This can be considered as modified (and numerically stable) version of stockholder partitioning.
+
+First four substeps of the algorithm was implemented today. I have also written a generic function that calculates spherical averages from radial field, which should was handy in the substeps I implemented today and will be useful for rest of the code as well.
+
+Hopefully, by tomorrow or the day after tomorrow, I should be able to see DDEC6 charges. Two major quantities that are remaining to be implemented are ***G(r\)*** and ***H(r\)*** which are optimized to ensure that the integrated charges do not move away from true charges and converge in a stable manner.
+
+
