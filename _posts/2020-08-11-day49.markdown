@@ -1,0 +1,9 @@
+---
+layout: post
+title: "Day 49: DDEC6 -- Step 4-7 (5-7)"
+date: 2020-08-11 13:00:00 +0900
+categories: cclib
+---
+
+Today, I have worked on writing a code that calculates ***G<sub>A</sub>*** and ***H<sub>A</sub>*** to evaluate ***&kappa;<sub>A</sub>*** in order to optimize grid weights in DDEC6 steps 4-7. I think most of the code is well implemented, but I see that there are some critical discrepancies in u<sub>A</sub> values compared with `chargemol`. I will review the code over tomorrow to fix any mistakes and hopefully have a usable method.
+
