@@ -1,0 +1,11 @@
+---
+layout: post
+title: "Day 50: DDEC6 -- Step 4-7 (5-7)"
+date: 2020-08-12 13:00:00 +0900
+categories: cclib
+---
+
+I finished reviewing the implementation for steps 4-7 in DDEC6 and can now generate DDEC6 charges in `cclib`. With my mentors' review and a few more subsequent PRs (docs and a few more tests), this should be ready.
+
+Another few remaining tasks include phasing out stockholder partition ( = Hirshfeld analysis) as a separate method and in the long term, parallelizing the method. This method is almost "embarrassingly parallel" and would benefit a lot from parallel execution in most platforms. `chargemol` does this as well and shows much better performance in any machine. But one should note that `cube` file generation in `cclib` is serial as well and this is also quite parallel in nature, which means that there are quite a few methods that will benefit from parallel execution or vectorization in `numpy`.
+
