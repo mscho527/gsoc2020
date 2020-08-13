@@ -1,0 +1,10 @@
+---
+layout: post
+title: "Day 51: DDEC6 -- testing"
+date: 2020-08-13 13:00:00 +0900
+categories: cclib
+---
+
+Today, I was trying to add a few tests to the DDEC6 method. Just like Bader's charges, I was thinking of adding 1) comparison between carbon atoms in benzene ring and 2) comparison of charges on some polar molecule. While trying the benzene ring test, I figured that the calculation takes too long and would not be appropriate for unit tests. Then, while looking at H2 as another candidate, I figured that the current implementation has a few divide-by-zero errors when nonpolar diatomics like H2 is given as an input. I tried to amend those by using explicit `numpy.divide` function, which allows avoiding divide-by-zero errors by specifying which value to use in such cases.
+
+
