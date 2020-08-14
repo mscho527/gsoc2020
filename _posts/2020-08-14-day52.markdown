@@ -1,0 +1,12 @@
+---
+layout: post
+title: "Day 52: DDEC6 -- testing"
+date: 2020-08-14 13:00:00 +0900
+categories: cclib
+---
+
+After addressing the points that my mentors advised me on DDEC6 implementation, I've spent today finalizing the test suite. I've added H2 and CO, comparing the assigned charges themselves and whether the sum is close enough to zero. 
+
+While adding these, I am hoping that most of the possible divide-by-zero cases would have been resolved. DDEC6 charges seem to be even more sensitive to the grid density than Bader, so it is quite difficult to add tests that involve larger molecules (which would have larger grid size). Due to the numerical integrations in each step of the algorithm, it looks like the complex scale very quickly to grid size. This was why I did not add benzene test in DDEC6 unlike Bader. In the long term, as mentioned in earlier post, some vectorization, `einsum`, or parallelization would help.
+
+
