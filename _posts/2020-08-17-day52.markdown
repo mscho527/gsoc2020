@@ -1,0 +1,14 @@
+---
+layout: post
+title: "Day 52: DDEC6 -- docs"
+date: 2020-08-17 13:00:00 +0900
+categories: cclib
+---
+
+Today, I've spent most of the time writing up the docs for DDEC6 algorithm. The usage is quite similar to Bader's QTAIM, so this has been quite straightforward.
+
+Last Friday, one of my mentors suggested me to run profilers on the new code to identify which function is taking up large sums of wall time. I have tried using profilers for C++ code (i.e. ARM Forge) but haven't tried using it on Python, so this has been an interesting task for me. Looks like the profiler for Python -- `CProfile` is extremely simple. It just needs an import and needs user to execute the command inside the `CProfile.run()` function. From the results, it looks like the `_integrate_from_radial()` function in the algorithm takes up huge amounts of time. In a sample run using carbon monoxide, the function took 61sec (out of total 122sec run time) and was called 64 times. The algorithm uses a lot of spherical averaging, so this is somewhat expected. If any optimizations (even small ones) can be made to this function, there should be some efficiency gain.
+
+Now that the program is heading to its last week, I should start thinking how to craft the final submission to GSoC. This should make the last week of the program quite interesting.
+
+
