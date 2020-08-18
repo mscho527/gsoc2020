@@ -1,0 +1,10 @@
+---
+layout: post
+title: "Day 54: DDEC6"
+date: 2020-08-18 13:00:00 +0900
+categories: cclib
+---
+
+Most of the time today was spent on finalizing DDEC6 PR -- I received some comments from my mentors regarding cleaning up the code and making the code much more readable. Thanks to my mentors' comments, I was able to reduce the branches in the code by quite a bit. I am still working on extracting out Hirshfeld method, which I think should be ready by tomorrow.
+
+
