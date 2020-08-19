@@ -1,0 +1,10 @@
+---
+layout: post
+title: "Day 55: DDEC6"
+date: 2020-08-19 13:00:00 +0900
+categories: cclib
+---
+
+I have finalized extracting out Hirshfeld method from DDEC6. Common parts between Hirshfeld and DDEC6, namely the part where 1) charge density is either imported or calculated and 2) proatom densities are read in from `horton` files were moved out into a parent class `Stockholder` (from the fact that both are referred as Stockholder-type charges in literature). Docs were added for Hirshfeld charges as well.
+
+
