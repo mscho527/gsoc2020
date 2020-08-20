@@ -1,0 +1,12 @@
+---
+layout: post
+title: "Day 56: DDEC6"
+date: 2020-08-20 13:00:00 +0900
+categories: cclib
+---
+
+Today, one of my mentors Shiv and I took a function-by-function review over the DDEC6 code (which is very complicated and long). After having conversation on which parts of the code can potentially be separated out as new functions, I worked on cleaning up the function for most of the time today. Hopefully, the readability of the code would have been improved at least slightly.
+
+With the program end date just on the corner, I am starting to think how the final submission would be like. Having a final blog post that summarizes the PRs I have written over the summer with links is a possibility that I am considering for now.
+
+
