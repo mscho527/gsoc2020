@@ -1,0 +1,9 @@
+---
+layout: post
+title: "Day 57: DDEC6"
+date: 2020-08-21 13:00:00 +0900
+categories: cclib
+---
+
+Today, I've added NH<sub>3</sub> into the test for DDEC6 as a response to my mentor's suggestion to add another test for the method. Then, I've started drafting the final submission to GSoC so that I'll have it ready by early next week.
+
